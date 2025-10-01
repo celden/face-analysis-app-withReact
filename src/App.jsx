@@ -17,7 +17,7 @@ function App() {
         faceapi.nets.ageGenderNet.loadFromUri(MODEL_URL),
         faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL),
       ]);
-      console.log("Modeller yüklendi ✅");
+      console.log("Modeller yüklendi");
     };
     loadModels();
   }, []);
@@ -85,66 +85,40 @@ function App() {
 
     const mood = moodMap[expression] || expression;
     const malenicknames = [
-      // ⚡ Havalı takma adlar
       "Turbo", "Yıldırım", "Gölge", "Kasırga", "Şimşek", "Kartal", "Serseri", "Kaptan", "Korsan", "Asil",
       "Panter", "Yırtıcı", "Komutan", "Bozkurt", "Volkan", "Avcı", "Yolcu", "Baron", "Kurt Adam", "Çelik Adam",
-
-      // 😂 Komik / Absürt takma adlar
       "Karpuzcu", "Köfteci", "Limoncu", "Tostçu", "Paspas Bey", "Mayonez Avcısı", "Robot Dayı",
       "Ninja", "Kafası Güzel", "Patates Kralı", "Dondurma Ninja", "Makarna Lordu", "Sakızcı", "Çılgın Tavuk",
       "Lahmacun Sevdalısı", "Mekanın Sahibi", "Turşucu", "Mısır Kralı", "Döner Uzmanı",
-
-      // 🕹️ Oyunvari / karakteristik adlar
       "Gölgelerin Efendisi", "Sessiz Vuruş", "Altın Yumruk", "Kod Avcısı", "Pixel Canavarı",
       "Yapay Zeka", "Hayalet", "Zihin Okuyucu", "Deli Mühendis", "Takla Ustası",
       "NoScope Baba", "Headshot Reis", "Hackerman", "Zehirli Bıçak", "Son Samuray", "Uzay Savaşçısı",
-
-      // 🇹🇷 Klasik Türk mizahı karışımı
       "Çaykolik", "Lahmacun Reis", "Taksici Remzi", "Ekmek Arası", "Çiğköfte Ninja", "Tavuk Dönerci",
       "Hamsi Lordu", "Bakkal Samet", "Zurna Kralı", "Simitçi Dayı", "Sucuk Ustası", "Şalgamcı Hüseyin",
       "Çaycı Murat", "Kebapçı Ali", "Köfte Kralı", "Dönerci Reis",
-
-      // ✨ Kısa, havalı takma adlar
       "Xeno", "Blaze", "ShadowX", "Nova", "Vortex", "Echo", "Frost", "Reaper", "Zed", "Rogue",
       "Hex", "Bolt", "Zero", "Crash", "Blade", "Specter",
-
-      // 🧸 Sevimli / şirin takma adlar (erkeklere uygun)
       "Pofuduk", "Tatlı Bela", "Ponçik", "Zıp Zıp", "Kurabiye Canavarı", "Karamel Adam", "Mini Barbar", "Şirin Dev",
-
-      // 🧍 Rastgele isim havası verenler (erkek)
       "Kral Ahmet", "Manyak Murat", "Turbo Selim", "Karpuzcu Mehmet",
       "Köfteci Osman", "Çılgın Ali", "Tostçu Enes", "Robot Deniz", "Pixel Hasan", "Kasırga Mustafa"
     ];
 
 
     const femalenicknames = [
-      // ⚡ Havalı takma adlar
       "Kasırga Kız", "Yıldırım Kadın", "Gölge Kraliçe", "Şimşek", "Asil Prenses", "Kaptan Kız",
       "Kartal Göz", "Fırtına", "Cesur Yürek", "Korsan Kız", "Gizemli Güç", "Luna", "Nova", "Blaze",
-
-      // 😂 Komik / Absürt takma adlar
       "Karpuzcu Hatun", "Köfteci Kadın", "Limoncu Abla", "Tostçu Kız", "Prenses", "Paspas Kraliçe",
       "Mayonez Avcısı", "Robot Teyze", "Ninja Kız", "Patates Kraliçesi", "Dondurma Prensesi",
       "Makarna Kadın", "Sakızcı Abla", "Çılgın Tavuk Kız", "Lahmacun Kraliçesi", "Tatlı Bela Kadın",
-
-      // 🕹️ Oyunvari / karakteristik adlar
       "Gölgelerin Kraliçesi", "Sessiz Vuruş", "Altın Pençe", "Uzaylı Kız", "Kod Avcısı",
       "Pixel Savaşçısı", "Yapay Zeka", "Hayalet Kız", "Zihin Okuyucu", "Deli Mühendis Kadın",
       "Uzay Prensesi", "Takla Ustası", "Sihirli Kız", "Gizemli Avcı", "Gölge Dansçısı",
-
-      // 🇹🇷 Klasik Türk mizahı karışımı
       "Çaykolik Abla", "Lahmacun Kraliçesi", "Ekmek Arası Kadın", "Çiğköfte Ninja Kız",
       "Tavuk Dönerci Abla", "Hamsi Kraliçesi", "Bakkal Teyze", "Zurna Kadın", "Gönül Abla",
       "Simitçi Kadın", "Teyze 3000", "Şalgamcı Hatun", "Tatlıcı Kız", "Kumpirci Kraliçe",
-
-      // ✨ Kısa, havalı takma adlar
       "Luna", "Nova", "Blaze", "Echo", "Frost", "ShadowX", "Stella", "Astra", "Zia", "Vortex", "Zenya", "Flare",
-
-      // 🧸 Sevimli / şirin takma adlar
       "Pofuduk", "Minnoş", "Bal Köpüğü", "Şekerpare", "Tatlı Bela", "Ponçik", "Zıp Zıp",
       "Kurabiye Canavarı", "Papatya Kız", "Karamel Kız", "Çilekli Rüya", "Şirin Savaşçı",
-
-      // 🧍 Rastgele isim havası verenler (kadın)
       "Kraliçe Ayşe", "Uzaylı Elif", "Piksel Buse", "Karpuzcu Merve", "Ninja Derya",
       "Çılgın Zeynep", "Turbo Selin", "Robot İrem", "Pixel Hande", "Kasırga Melis"
     ];
